@@ -6,17 +6,44 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.DigestUtils;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 import static com.ymy.printer.util.ConvertUtil.mapFilter;
 import static com.ymy.printer.util.ConvertUtil.spliceParamsToString;
-import static com.ymy.printer.util.KeyUtil.sign;
+import static com.ymy.printer.util.KeyUtil.getMD5;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PrinterApplicationTests {
+
+    @Test
+    public void getMd5() {
+        String str = "lxz我发方法fg我发的g";
+        try {
+
+            long aa = System.currentTimeMillis();
+            for (int i = 0; i < 10000000; i++) {
+                DigestUtils.md5DigestAsHex(str.getBytes("utf-8"));
+            }
+            long bb = System.currentTimeMillis();
+            System.out.println(bb - aa);
+            //---------------------------------------
+            long cc = System.currentTimeMillis();
+            for (int i = 0; i < 10000000; i++) {
+                getMD5(str);
+            }
+            long dd = System.currentTimeMillis();
+            System.out.println(dd - cc);
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Test
     public void tojson() {
@@ -42,10 +69,10 @@ public class PrinterApplicationTests {
     }
 
     @Test
-    public void prin() {
+    public void prin() throws UnsupportedEncodingException {
         String u = UUID.randomUUID().toString().toUpperCase();
         String time = String.valueOf(System.currentTimeMillis() / 1000);
-        String m = sign("1070784614" + time + "db8264dc3a54faa47ef85a896595f7bf");
+        String m = getMD5("1070784614" + time + "db8264dc3a54faa47ef85a896595f7bf");
 
         Map<String, String> map = new HashMap<>();
         map.put("client_id", "1070784614");
