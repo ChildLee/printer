@@ -18,10 +18,10 @@ public final class KeyUtil {
      * @return MD5
      */
     public static String getMD5(String param) {
-        char[] chars = null;
+        if (param == null) return null;
+        char[] chars = new char[32];
         try {
             byte[] bytes = MessageDigest.getInstance("MD5").digest(param.getBytes("utf-8"));
-            chars = new char[32];
             for (int i = 0; i < chars.length; i = i + 2) {
                 byte b = bytes[i / 2];
                 chars[i] = HEX_CHARS[(b >>> 0x4) & 0xf];

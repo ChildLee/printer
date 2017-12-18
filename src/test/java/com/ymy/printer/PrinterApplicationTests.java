@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.DigestUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -22,26 +21,7 @@ public class PrinterApplicationTests {
 
     @Test
     public void getMd5() {
-        String str = "lxz我发方法fg我发的g";
-        try {
 
-            long aa = System.currentTimeMillis();
-            for (int i = 0; i < 10000000; i++) {
-                DigestUtils.md5DigestAsHex(str.getBytes("utf-8"));
-            }
-            long bb = System.currentTimeMillis();
-            System.out.println(bb - aa);
-            //---------------------------------------
-            long cc = System.currentTimeMillis();
-            for (int i = 0; i < 10000000; i++) {
-                getMD5(str);
-            }
-            long dd = System.currentTimeMillis();
-            System.out.println(dd - cc);
-
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
     }
 
 
