@@ -2,6 +2,8 @@ package com.ymy.printer;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ymy.printer.util.ConvertUtil;
+import com.ymy.printer.util.KeyUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,10 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
-
-import static com.ymy.printer.util.ConvertUtil.mapFilter;
-import static com.ymy.printer.util.ConvertUtil.spliceParamsToString;
-import static com.ymy.printer.util.KeyUtil.getMD5;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -52,7 +50,7 @@ public class PrinterApplicationTests {
     public void prin() throws UnsupportedEncodingException {
         String u = UUID.randomUUID().toString().toUpperCase();
         String time = String.valueOf(System.currentTimeMillis() / 1000);
-        String m = getMD5("1070784614" + time + "db8264dc3a54faa47ef85a896595f7bf");
+        String m = KeyUtil.getMD5("1070784614" + time + "db8264dc3a54faa47ef85a896595f7bf");
 
         Map<String, String> map = new HashMap<>();
         map.put("client_id", "1070784614");
@@ -62,8 +60,8 @@ public class PrinterApplicationTests {
         map.put("timestamp", time);
         map.put("id", u);
         //参数处理
-        mapFilter(map);
-        String param = spliceParamsToString(map);
+        ConvertUtil.mapFilter(map);
+        String param = ConvertUtil.spliceParamsToString(map);
         String url = "https://open-api.10ss.net/oauth/oauth";
     }
 }
