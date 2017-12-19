@@ -1,7 +1,5 @@
 package com.ymy.printer.util;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Random;
 
 /**
